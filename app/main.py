@@ -2,6 +2,9 @@ from fastapi import FastAPI
 
 from app.routers.user_router import router as user_router
 
+from app.routers.interview_router import (
+    router as interview_router,
+)
 
 app = FastAPI(
     title="AI Interview Platform",
@@ -16,3 +19,4 @@ def health_check() -> dict[str, str]:
 
 
 app.include_router(user_router)
+app.include_router(interview_router)

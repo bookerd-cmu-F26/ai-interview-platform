@@ -1,3 +1,8 @@
+from app.models.interview import InterviewResponse
+from app.repositories.interview_repository import InterviewRepository
+from app.services.interview_service import InterviewService
+from app.services.sqs_service import SQSService
+
 from fastapi import (
     APIRouter,
     Query,
@@ -26,6 +31,14 @@ user_service = UserService(
     user_repository
 )
 
+interview_repository = InterviewRepository()
+sqs_service = SQSService()
+
+interview_service = InterviewService(
+    interview_repository=interview_repository,
+    user_repository=user_repository,
+    sqs_service=sqs_service,
+)
 
 @router.post(
     "",
@@ -95,4 +108,15 @@ def delete_user(
 
     return Response(
         status_code=status.HTTP_204_NO_CONTENT
+    )
+
+@router.get(
+    "/{user_id}/interviews",
+    response_model=list[InterviewResponse],
+)
+def get_interviews_by_user(
+    user_id: str,
+) -> list[InterviewResponse]:
+    return interview_service.get_interviews_by_user(
+        user_id
     )
