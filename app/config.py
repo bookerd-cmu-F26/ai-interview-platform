@@ -26,3 +26,13 @@ QUESTION_GENERATION_QUEUE_URL = os.getenv(
     "QUESTION_GENERATION_QUEUE_URL",
     "https://sqs.us-west-2.amazonaws.com/038040472479/question-generation-queue",
 )
+
+QUESTIONS_TABLE_NAME = os.getenv(
+    "QUESTIONS_TABLE_NAME",
+    "questions",
+)
+
+QUESTIONS_INTERVIEW_INDEX_NAME = os.getenv(
+    "QUESTIONS_INTERVIEW_INDEX_NAME",
+    "interview_id-question_order-index",
+)

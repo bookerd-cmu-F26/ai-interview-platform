@@ -6,6 +6,10 @@ from app.routers.interview_router import (
     router as interview_router,
 )
 
+from app.routers.question_router import (
+    router as question_router,
+)
+
 app = FastAPI(
     title="AI Interview Platform",
     description="FastAPI backend for the AI Interview project",
@@ -20,3 +24,4 @@ def health_check() -> dict[str, str]:
 
 app.include_router(user_router)
 app.include_router(interview_router)
+app.include_router(question_router)

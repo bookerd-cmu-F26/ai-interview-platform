@@ -73,3 +73,23 @@ class InterviewRepository:
             InterviewResponse(**item)
             for item in response.get("Items", [])
         ]
+
+    def update_status(
+        self,
+        interview_id: str,
+        status: str,
+        ) -> None:
+            self.table.update_item(
+                Key={
+                    "interview_id": interview_id,
+                },
+                UpdateExpression=(
+                    "SET #status = :status"
+                ),
+                ExpressionAttributeNames={
+                    "#status": "status",
+                },
+                ExpressionAttributeValues={
+                    ":status": status,
+                },
+            )

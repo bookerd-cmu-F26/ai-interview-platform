@@ -32,3 +32,28 @@ class SQSService:
             QueueUrl=QUESTION_GENERATION_QUEUE_URL,
             MessageBody=json.dumps(message),
         )
+
+    def receive_question_generation_messages(
+    self,
+    ) -> list[dict]:
+        response = self.sqs.receive_message(
+            QueueUrl=QUESTION_GENERATION_QUEUE_URL,
+            MaxNumberOfMessages=1,
+            WaitTimeSeconds=20,
+            VisibilityTimeout=60,
+        )
+
+        return response.get(
+            "Messages",
+            [],
+        )
+
+
+    def delete_message(
+        self,
+        receipt_handle: str,
+        ) -> None:
+            self.sqs.delete_message(
+                QueueUrl=QUESTION_GENERATION_QUEUE_URL,
+                ReceiptHandle=receipt_handle,
+        )
