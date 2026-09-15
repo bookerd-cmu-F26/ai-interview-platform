@@ -18,7 +18,7 @@ class InterviewType(str, Enum):
 
 class CreateInterviewRequest(BaseModel):
     user_id: str
-    interview_type: InterviewType
+    interview_types: list[InterviewType]
     job_title: str = Field(min_length=1, max_length=200)
     job_description: str | None = None
 
@@ -26,7 +26,7 @@ class CreateInterviewRequest(BaseModel):
 class InterviewResponse(BaseModel):
     interview_id: str
     user_id: str
-    interview_type: InterviewType
+    interview_types: list[InterviewType]
     job_title: str
     job_description: str | None = None
     status: InterviewStatus

@@ -19,13 +19,11 @@ class SQSService:
         self,
         interview_id: str,
         user_id: str,
-        interview_type: str,
     ) -> None:
         message = {
             "event_type": "GENERATE_QUESTIONS",
             "interview_id": interview_id,
-            "user_id": user_id,
-            "interview_type": interview_type,
+            "user_id": user_id
         }
 
         self.sqs.send_message(

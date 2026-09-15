@@ -29,7 +29,10 @@ class InterviewRepository:
             Item={
                 "interview_id": interview.interview_id,
                 "user_id": interview.user_id,
-                "interview_type": interview.interview_type.value,
+                "interview_types": [
+                    interview_type.value
+                    for interview_type in interview.interview_types
+                ],  
                 "job_title": interview.job_title,
                 "job_description": interview.job_description,
                 "status": interview.status.value,

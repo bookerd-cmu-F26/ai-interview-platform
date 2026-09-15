@@ -7,7 +7,9 @@ from app.repositories.interview_repository import (
 from app.repositories.question_generation_repository import (
     QuestionGenerationRepository,
 )
-from app.services.question_service import QuestionService
+from app.services.ai_question_service import (
+    AIQuestionService,
+)
 from app.services.sqs_service import SQSService
 
 
@@ -15,7 +17,7 @@ class QuestionGenerationConsumer:
     def __init__(self) -> None:
         self.sqs_service = SQSService()
         self.interview_repository = InterviewRepository()
-        self.question_service = QuestionService()
+        self.question_service = AIQuestionService()
         self.question_generation_repository = (
             QuestionGenerationRepository()
         )
@@ -53,16 +55,16 @@ class QuestionGenerationConsumer:
             )
             return
 
-        question = (
-            self.question_service.generate_question(
-                interview
+        questions = (
+            self.question_service.generate_questions(
+            interview
             )
         )
 
         transaction_succeeded = (
             self.question_generation_repository
-            .create_question_and_mark_ready(
-                question
+            .create_questions_and_mark_ready(
+                questions
             )
         )
 

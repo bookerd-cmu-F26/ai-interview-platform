@@ -45,7 +45,7 @@ class InterviewService:
         interview = InterviewResponse(
             interview_id=str(uuid4()),
             user_id=request.user_id,
-            interview_type=request.interview_type,
+            interview_types=request.interview_types,
             job_title=request.job_title,
             job_description=request.job_description,
             status=InterviewStatus.QUESTION_GENERATING,
@@ -60,7 +60,6 @@ class InterviewService:
         self.sqs_service.send_question_generation_message(
             interview_id=interview.interview_id,
             user_id=interview.user_id,
-            interview_type=interview.interview_type.value,
         )
 
         return interview

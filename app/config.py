@@ -36,3 +36,8 @@ QUESTIONS_INTERVIEW_INDEX_NAME = os.getenv(
     "QUESTIONS_INTERVIEW_INDEX_NAME",
     "interview_id-question_order-index",
 )
+
+OPENAI_MODEL = os.getenv(
+    "OPENAI_MODEL",
+    "gpt-5.6-luna",
+)
